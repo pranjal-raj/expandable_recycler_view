@@ -1,0 +1,35 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    - name: Build with Gradle
+      run: ./gradlew build
+      
+    - name: Build Android release APK
+  # You may pin to the exact commit or the version.
+  # uses: VladDaniliuk/action-release-releaseapk@b7d927e4b936ec9c6e7852553d644a34b883ff4b
+      uses: VladDaniliuk/action-release-releaseapk@1.4.1
+      with:
+    # Github secret token to allow automated publishing of APK to release.
+        GITHUB_TOKEN: ${{github.token}}
+          
