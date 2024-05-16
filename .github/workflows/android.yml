@@ -43,7 +43,7 @@ jobs:
      
      
       - name: Upload debug apk
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.REPOSITORY_NAME }}
           path: app/build/outputs/apk/debug/app-debug.apk
@@ -57,7 +57,7 @@ jobs:
         run: echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
       
       - name: Download APK from build
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4
         with:
           name:  ${{ env.REPOSITORY_NAME }}
 
